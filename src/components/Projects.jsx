@@ -1,6 +1,12 @@
 import { useState } from "react";
-import { Image, Tag } from "antd";
-import { EnvironmentOutlined, RightCircleOutlined, PictureOutlined } from "@ant-design/icons";
+import { Image, Tag, Button } from "antd";
+import {
+  EnvironmentOutlined,
+  CheckCircleOutlined,
+  PictureOutlined,
+  EyeOutlined,
+  ThunderboltOutlined
+} from "@ant-design/icons";
 import { projects } from "../data/content";
 
 function ProjectShowcase({ project, reversed }) {
@@ -17,59 +23,111 @@ function ProjectShowcase({ project, reversed }) {
           style={reversed ? { direction: "rtl" } : undefined}
         >
           <div style={reversed ? { direction: "ltr" } : undefined}>
-            <div className="tl-project-cover" onClick={() => { setPreviewIndex(0); setPreviewVisible(true); }} role="button">
-              <img src={project.cover} alt={project.title} />
+            <div
+              className="tl-project-cover"
+              onClick={() => {
+                setPreviewIndex(0);
+                setPreviewVisible(true);
+              }}
+              role="button"
+              tabIndex={0}
+            >
+              <img src={project.cover} alt={project.title} loading="lazy" />
+              <div className="tl-project-cover-badge">
+                <PictureOutlined />
+                <span>{project.gallery.length} hình ảnh</span>
+              </div>
             </div>
           </div>
 
           <div style={reversed ? { direction: "ltr" } : undefined}>
-            <span className="tl-project-index">DỰ ÁN {project.index}</span>
-            <h3 className="tl-heading" style={{ fontSize: "clamp(24px,2.6vw,32px)", margin: "10px 0 4px" }}>
-              {project.title}
-            </h3>
-            <p style={{ color: "var(--gold-soft)", fontSize: 14, margin: "0 0 4px" }}>{project.subtitle}</p>
-            <p style={{ color: "var(--text-faint)", fontSize: 13, display: "flex", gap: 6, alignItems: "center" }}>
-              <EnvironmentOutlined /> {project.location}
-            </p>
-
-            <p className="tl-lede" style={{ margin: "18px 0 0" }}>{project.lede}</p>
-
-            <div className="tl-project-stats">
-              {project.stats.map((s) => (
-                <div key={s.label}>
-                  <div className="tl-project-stat-value">{s.value}</div>
-                  <div className="tl-project-stat-label">{s.label}</div>
-                </div>
-              ))}
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <span className="tl-project-index">DỰ ÁN {project.index}</span>
+              <span style={{ color: "var(--border-strong)" }}>|</span>
+              <span
+                style={{
+                  color: "var(--gold-dark)",
+                  fontSize: 13,
+                  fontWeight: 700
+                }}
+              >
+                {project.subtitle}
+              </span>
             </div>
 
-            <div className="tl-project-list">
-              {list.map((f) => (
-                <div className="tl-project-list-item" key={f.title}>
-                  <RightCircleOutlined />
-                  <span><b>{f.title}.</b> {f.desc}</span>
-                </div>
-              ))}
-              {extra?.map((h) => (
-                <div className="tl-project-list-item" key={h}>
-                  <RightCircleOutlined />
-                  <span>{h}</span>
-                </div>
-              ))}
-            </div>
-
-            <button
-              type="button"
-              onClick={() => { setPreviewIndex(0); setPreviewVisible(true); }}
+            <h3
+              className="tl-heading"
               style={{
-                display: "inline-flex", alignItems: "center", gap: 8,
-                background: "transparent", border: "1px solid var(--border-strong)",
-                color: "var(--text)", borderRadius: 999, padding: "10px 20px",
-                fontSize: 13.5, cursor: "pointer",
+                fontSize: "clamp(24px,2.6vw,32px)",
+                margin: "10px 0 6px"
               }}
             >
-              <PictureOutlined /> Xem thư viện ảnh ({project.gallery.length})
-            </button>
+              {project.title}
+            </h3>
+
+            <p
+              style={{
+                color: "var(--text-muted)",
+                fontSize: 13.5,
+                display: "flex",
+                gap: 6,
+                alignItems: "center",
+                fontWeight: 500
+              }}
+            >
+              <EnvironmentOutlined style={{ color: "var(--gold-dark)" }} />{" "}
+              {project.location}
+            </p>
+
+            <p className="tl-lede" style={{ margin: "14px 0 0" }}>
+              {project.lede}
+            </p>
+
+            {/* Key stats */}
+            <div className="tl-project-stats-grid">
+              {project.stats.map((s) => (
+                <div className="tl-project-stat-box" key={s.label}>
+                  <div className="tl-project-stat-box-val">{s.value}</div>
+                  <div className="tl-project-stat-box-lbl">{s.label}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Facilities and details */}
+            <div style={{ margin: "16px 0 22px" }}>
+              {list.map((f) => (
+                <div className="tl-facility-card" key={f.title}>
+                  <div className="tl-facility-title">
+                    <CheckCircleOutlined
+                      style={{ color: "var(--gold-dark)", fontSize: 14 }}
+                    />
+                    <span>{f.title}</span>
+                  </div>
+                  <div className="tl-facility-desc">{f.desc}</div>
+                </div>
+              ))}
+              {extra?.map((h, idx) => (
+                <div className="tl-facility-card" key={idx}>
+                  <div className="tl-facility-title">
+                    <ThunderboltOutlined
+                      style={{ color: "var(--gold-dark)", fontSize: 14 }}
+                    />
+                    <span style={{ fontWeight: 600, fontSize: 13.5 }}>{h}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <Button
+              className="tl-btn-ghost"
+              onClick={() => {
+                setPreviewIndex(0);
+                setPreviewVisible(true);
+              }}
+              icon={<PictureOutlined style={{ color: "var(--gold-dark)" }} />}
+            >
+              Xem bộ ảnh chi tiết ({project.gallery.length} hình)
+            </Button>
           </div>
         </div>
 
@@ -80,7 +138,7 @@ function ProjectShowcase({ project, reversed }) {
               visible: previewVisible,
               current: previewIndex,
               onVisibleChange: (v) => setPreviewVisible(v),
-              onChange: (cur) => setPreviewIndex(cur),
+              onChange: (cur) => setPreviewIndex(cur)
             }}
           >
             {project.gallery.map((g, i) => (
@@ -89,14 +147,21 @@ function ProjectShowcase({ project, reversed }) {
           </Image.PreviewGroup>
         </div>
 
-        <div className="tl-gallery-grid" style={{ marginTop: 34 }}>
+        {/* Thumbnails grid */}
+        <div className="tl-gallery-grid" style={{ marginTop: 32 }}>
           {project.gallery.map((g, i) => (
             <div
               className="tl-gallery-item"
               key={i}
-              onClick={() => { setPreviewIndex(i); setPreviewVisible(true); }}
+              onClick={() => {
+                setPreviewIndex(i);
+                setPreviewVisible(true);
+              }}
             >
               <img src={g.src} alt={g.caption} loading="lazy" />
+              <div className="tl-gallery-overlay-icon">
+                <EyeOutlined />
+              </div>
               <div className="tl-gallery-cap">{g.caption}</div>
             </div>
           ))}
@@ -108,22 +173,39 @@ function ProjectShowcase({ project, reversed }) {
 
 export default function Projects() {
   return (
-    <section id="du-an">
-      <div className="tl-container" style={{ paddingTop: 108, borderTop: "1px solid var(--border)" }}>
-        <span className="tl-eyebrow">Dự án trọng điểm</span>
-        <h2 className="tl-heading" style={{ fontSize: "clamp(28px,3.4vw,40px)", maxWidth: 700 }}>
+    <section>
+      <div
+        className="tl-container"
+        style={{ paddingTop: 100, borderTop: "1px solid var(--border)" }}
+      >
+        <div className="tl-eyebrow">
+          <span className="tl-eyebrow-dot" />
+          <span>Dự án trọng điểm</span>
+        </div>
+
+        <h2
+          className="tl-heading"
+          style={{
+            fontSize: "clamp(28px,3.2vw,40px)",
+            maxWidth: 720,
+            marginTop: 16
+          }}
+        >
           Ba trụ cột hạ tầng <em>quy mô quốc gia</em>
         </h2>
-        <p className="tl-lede" style={{ marginTop: 16 }}>
-          Từ sản xuất thiết bị điện gió, hạ tầng đường sắt tốc độ cao đến khu kinh tế
-          cửa khẩu — mỗi dự án đều gắn liền với công nghệ chuyển giao quốc tế và cam
-          kết phát triển bền vững.
+
+        <p className="tl-lede" style={{ marginTop: 14 }}>
+          Tập trung vào 3 lĩnh vực then chốt: sản xuất thiết bị điện gió, công
+          nghiệp đường sắt tốc độ cao và khu kinh tế cửa khẩu Xuyên Á.
         </p>
-        <div style={{ marginTop: 20, display: "flex", gap: 8, flexWrap: "wrap" }}>
+
+        <div
+          style={{ marginTop: 22, display: "flex", gap: 10, flexWrap: "wrap" }}
+        >
           {projects.map((p) => (
-            <Tag className="tl-tag" key={p.id}>
-              <a href={`#${p.id}`}>{p.title}</a>
-            </Tag>
+            <a href={`#${p.id}`} key={p.id} className="tl-tag tl-tag-active">
+              Dự án {p.index}: {p.title}
+            </a>
           ))}
         </div>
       </div>

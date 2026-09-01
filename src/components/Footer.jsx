@@ -1,78 +1,286 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Row, Col } from "antd";
-import { EnvironmentOutlined, PhoneOutlined, MailOutlined, IdcardOutlined } from "@ant-design/icons";
+import {
+  EnvironmentOutlined,
+  PhoneOutlined,
+  MailOutlined,
+  ArrowUpOutlined,
+  SafetyCertificateOutlined
+} from "@ant-design/icons";
 import { company, navLinks } from "../data/content";
 
 export default function Footer() {
+  const [showTopBtn, setShowTopBtn] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowTopBtn(window.scrollY > 400);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
-    <footer className="tl-footer" id="lien-he">
+    <footer className="tl-footer">
       <div className="tl-container">
-        <Row gutter={[40, 40]}>
-          <Col xs={24} md={10}>
-            <div className="tl-brand" style={{ fontSize: 20 }}>
-              <span className="tl-brand-mark" />
+        <Row gutter={[48, 40]}>
+          {/* Brand & Overview */}
+          <Col xs={24} lg={10}>
+            <div className="tl-brand" style={{ fontSize: 21 }}>
+              <div className="tl-brand-mark">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                  <polygon points="12,5 19,17 5,17" fill="#d97706" />
+                </svg>
+              </div>
               <span>
                 Thăng Long Energy
                 <small>International JSC</small>
               </span>
             </div>
-            <p className="tl-lede" style={{ marginTop: 18, fontSize: 14 }}>
-              {company.nameVi} — phát triển hạ tầng năng lượng tái tạo và khu công
-              nghiệp quy mô lớn tại Việt Nam.
+
+            <p
+              className="tl-lede"
+              style={{ marginTop: 16, fontSize: 14, lineHeight: 1.6 }}
+            >
+              {company.nameVi} — Tiên phong đầu tư hạ tầng năng lượng tái tạo,
+              tổ hợp sản xuất tuabin gió và các khu công nghiệp trọng điểm quốc
+              gia.
             </p>
+
+            <div
+              style={{
+                marginTop: 20,
+                display: "flex",
+                gap: 10,
+                flexWrap: "wrap"
+              }}
+            >
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                  fontSize: 12,
+                  color: "var(--gold-dark)",
+                  background: "#fef3c7",
+                  padding: "5px 12px",
+                  borderRadius: "var(--radius-full)",
+                  border: "1px solid rgba(217, 119, 6, 0.25)",
+                  fontWeight: 600
+                }}
+              >
+                <SafetyCertificateOutlined /> MST: {company.taxCode}
+              </span>
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                  fontSize: 12,
+                  color: "var(--text-secondary)",
+                  background: "#f1f5f9",
+                  padding: "5px 12px",
+                  borderRadius: "var(--radius-full)",
+                  border: "1px solid var(--border)",
+                  fontWeight: 600
+                }}
+              >
+                Vốn ĐL: {company.charterCapital}
+              </span>
+            </div>
           </Col>
 
-          <Col xs={24} sm={12} md={7}>
-            <h4 style={{ color: "var(--text)", fontFamily: "var(--font-serif)", fontSize: 16 }}>
-              Liên hệ
+          {/* Contact Details */}
+          <Col xs={24} sm={14} lg={8}>
+            <h4
+              style={{
+                color: "var(--text)",
+                fontFamily: "var(--font-serif)",
+                fontSize: 18,
+                marginBottom: 16,
+                fontWeight: 700
+              }}
+            >
+              Thông tin liên hệ
             </h4>
-            <Row gutter={[10, 14]} style={{ marginTop: 14 }}>
-              <ContactLine icon={<EnvironmentOutlined />} text={company.address} />
-              <ContactLine icon={<PhoneOutlined />} text={company.phone} />
-              <ContactLine icon={<IdcardOutlined />} text={`MST ${company.taxCode}`} />
-              <ContactLine icon={<MailOutlined />} text="lienhe@thanglongenergy.vn" />
-            </Row>
+
+            <div style={{ display: "grid", gap: 10 }}>
+              <div className="tl-contact-card">
+                <div className="tl-contact-icon">
+                  <EnvironmentOutlined />
+                </div>
+                <div>
+                  <div
+                    style={{
+                      fontSize: 12,
+                      color: "var(--gold-dark)",
+                      fontWeight: 700
+                    }}
+                  >
+                    Trụ sở điều hành
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 13,
+                      color: "var(--text-secondary)",
+                      marginTop: 2,
+                      lineHeight: 1.45
+                    }}
+                  >
+                    {company.address}
+                  </div>
+                </div>
+              </div>
+
+              <a
+                href={`tel:${company.phone.replace(/\s+/g, "")}`}
+                className="tl-contact-card"
+              >
+                <div className="tl-contact-icon">
+                  <PhoneOutlined />
+                </div>
+                <div>
+                  <div
+                    style={{
+                      fontSize: 12,
+                      color: "var(--gold-dark)",
+                      fontWeight: 700
+                    }}
+                  >
+                    Hotline trực tiếp
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 14,
+                      color: "var(--text)",
+                      marginTop: 2,
+                      fontWeight: 700
+                    }}
+                  >
+                    {company.phone}
+                  </div>
+                </div>
+              </a>
+
+              <a
+                href="mailto:lienhe@thanglongenergy.vn"
+                className="tl-contact-card"
+              >
+                <div className="tl-contact-icon">
+                  <MailOutlined />
+                </div>
+                <div>
+                  <div
+                    style={{
+                      fontSize: 12,
+                      color: "var(--gold-dark)",
+                      fontWeight: 700
+                    }}
+                  >
+                    Hộp thư điện tử
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 13.5,
+                      color: "var(--text-secondary)",
+                      marginTop: 2,
+                      fontWeight: 500
+                    }}
+                  >
+                    lienhe@thanglongenergy.vn
+                  </div>
+                </div>
+              </a>
+            </div>
           </Col>
 
-          <Col xs={24} sm={12} md={7}>
-            <h4 style={{ color: "var(--text)", fontFamily: "var(--font-serif)", fontSize: 16 }}>
-              Điều hướng
+          {/* Quick Links */}
+          <Col xs={24} sm={10} lg={6}>
+            <h4
+              style={{
+                color: "var(--text)",
+                fontFamily: "var(--font-serif)",
+                fontSize: 18,
+                marginBottom: 16,
+                fontWeight: 700
+              }}
+            >
+              Điều hướng nhanh
             </h4>
-            <div style={{ display: "grid", gap: 10, marginTop: 14 }}>
+            <div style={{ display: "grid", gap: 6 }}>
               {navLinks.map((l) => (
-                <a key={l.href} href={l.href} style={{ fontSize: 13.5, color: "var(--text-muted)" }}>
+                <Link
+                  key={l.href}
+                  to={l.href}
+                  style={{
+                    fontSize: 14,
+                    color: "var(--text-secondary)",
+                    padding: "4px 0",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    fontWeight: 500,
+                    transition: "color 0.2s"
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "var(--gold-dark)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "var(--text-secondary)")
+                  }
+                >
+                  <span style={{ color: "var(--gold-dark)", fontSize: 10 }}>
+                    ›
+                  </span>
                   {l.label}
-                </a>
+                </Link>
               ))}
             </div>
           </Col>
         </Row>
 
+        {/* Bottom Bar */}
         <div
           style={{
-            marginTop: 56,
-            paddingTop: 24,
+            marginTop: 48,
+            paddingTop: 20,
             borderTop: "1px solid var(--border)",
-            fontSize: 12.5,
-            color: "var(--text-faint)",
+            fontSize: 13,
+            color: "var(--text-muted)",
             display: "flex",
             justifyContent: "space-between",
+            alignItems: "center",
             flexWrap: "wrap",
-            gap: 8,
+            gap: 12
           }}
         >
-          <span>© {new Date().getFullYear()} {company.nameEn}. All rights reserved.</span>
-          <span>Người đại diện pháp luật: {company.legalRep}</span>
+          <span>
+            © {new Date().getFullYear()} {company.nameEn}. Bảo lưu mọi quyền.
+          </span>
+          <span>
+            Đại diện pháp luật:{" "}
+            <strong style={{ color: "var(--text)" }}>{company.legalRep}</strong>
+          </span>
         </div>
       </div>
-    </footer>
-  );
-}
 
-function ContactLine({ icon, text }) {
-  return (
-    <Col xs={24} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
-      <span style={{ color: "var(--gold)", marginTop: 3 }}>{icon}</span>
-      <span style={{ fontSize: 13.5, color: "var(--text-muted)", lineHeight: 1.6 }}>{text}</span>
-    </Col>
+      {/* Floating Back to Top */}
+      {showTopBtn && (
+        <button
+          type="button"
+          className="tl-back-to-top"
+          onClick={scrollToTop}
+          title="Về đầu trang"
+          aria-label="Về đầu trang"
+        >
+          <ArrowUpOutlined />
+        </button>
+      )}
+    </footer>
   );
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Row, Col, Image } from "antd";
-import { SafetyCertificateOutlined } from "@ant-design/icons";
+import { SafetyCertificateOutlined, EyeOutlined } from "@ant-design/icons";
 import { licenseDocs } from "../data/content";
 
 export default function Licenses() {
@@ -8,15 +8,27 @@ export default function Licenses() {
   const [previewIndex, setPreviewIndex] = useState(0);
 
   return (
-    <section className="tl-section" id="phap-ly">
+    <section className="tl-section">
       <div className="tl-container">
-        <span className="tl-eyebrow">Hồ sơ pháp lý</span>
-        <h2 className="tl-heading" style={{ fontSize: "clamp(28px,3.4vw,40px)", maxWidth: 700 }}>
-          Giấy phép &amp; <em>chứng nhận đầu tư</em>
+        <div className="tl-eyebrow">
+          <span className="tl-eyebrow-dot" />
+          <span>Hồ sơ pháp lý minh bạch</span>
+        </div>
+
+        <h2
+          className="tl-heading"
+          style={{
+            fontSize: "clamp(28px,3.2vw,40px)",
+            maxWidth: 720,
+            marginTop: 16
+          }}
+        >
+          Giấy phép &amp; <em>chứng nhận đầu tư chính thức</em>
         </h2>
-        <p className="tl-lede" style={{ marginTop: 16 }}>
-          Đầy đủ giấy chứng nhận đăng ký doanh nghiệp và chứng nhận đăng ký đầu tư cho
-          các dự án thành phần, được cấp bởi cơ quan quản lý nhà nước có thẩm quyền.
+
+        <p className="tl-lede" style={{ marginTop: 14 }}>
+          Toàn bộ hồ sơ đăng ký doanh nghiệp, chứng nhận đầu tư và quy hoạch xây
+          dựng được cấp bởi cơ quan nhà nước có thẩm quyền.
         </p>
 
         <div style={{ display: "none" }}>
@@ -25,7 +37,7 @@ export default function Licenses() {
               visible: previewVisible,
               current: previewIndex,
               onVisibleChange: setPreviewVisible,
-              onChange: setPreviewIndex,
+              onChange: setPreviewIndex
             }}
           >
             {licenseDocs.map((d, i) => (
@@ -34,22 +46,59 @@ export default function Licenses() {
           </Image.PreviewGroup>
         </div>
 
-        <Row gutter={[20, 20]} style={{ marginTop: 36 }}>
+        <Row gutter={[16, 16]} style={{ marginTop: 32 }}>
           {licenseDocs.map((d, i) => (
             <Col xs={12} sm={8} lg={4} key={i}>
               <div className="tl-doc">
                 <div
                   className="tl-doc-img-wrap"
-                  onClick={() => { setPreviewIndex(i); setPreviewVisible(true); }}
+                  onClick={() => {
+                    setPreviewIndex(i);
+                    setPreviewVisible(true);
+                  }}
+                  role="button"
+                  tabIndex={0}
                 >
                   <img src={d.src} alt={d.title} loading="lazy" />
+                  <div className="tl-gallery-overlay-icon">
+                    <EyeOutlined />
+                  </div>
+                  <div
+                    style={{
+                      position: "absolute",
+                      bottom: 8,
+                      left: 8,
+                      background: "rgba(255, 255, 255, 0.9)",
+                      backdropFilter: "blur(4px)",
+                      border: "1px solid var(--border)",
+                      borderRadius: 4,
+                      padding: "2px 6px",
+                      fontSize: 10.5,
+                      color: "var(--gold-dark)",
+                      fontWeight: 700
+                    }}
+                  >
+                    Văn bản 0{i + 1}
+                  </div>
                 </div>
+
                 <div className="tl-doc-cap">
                   <b>
-                    <SafetyCertificateOutlined style={{ color: "var(--gold)", marginRight: 6 }} />
+                    <SafetyCertificateOutlined
+                      style={{ color: "var(--gold-dark)", marginRight: 6 }}
+                    />
                     {d.title}
                   </b>
-                  {d.desc}
+                  <span
+                    style={{
+                      fontSize: 12,
+                      color: "var(--text-muted)",
+                      marginTop: "auto",
+                      lineHeight: 1.45
+                    }}
+                  >
+                    {d.desc}
+                  </span>
                 </div>
               </div>
             </Col>

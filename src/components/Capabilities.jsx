@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Tabs, Image } from "antd";
+import { EyeOutlined } from "@ant-design/icons";
 import { capabilityGroups } from "../data/content";
 
 export default function Capabilities() {
@@ -7,34 +8,69 @@ export default function Capabilities() {
   const [previewIndex, setPreviewIndex] = useState(0);
   const [activeKey, setActiveKey] = useState(capabilityGroups[0].key);
 
-  const activeGroup = capabilityGroups.find((g) => g.key === activeKey);
+  const activeGroup =
+    capabilityGroups.find((g) => g.key === activeKey) || capabilityGroups[0];
 
   return (
-    <section className="tl-section" id="nang-luc">
+    <section className="tl-section">
       <div className="tl-container">
-        <span className="tl-eyebrow">Năng lực triển khai</span>
-        <h2 className="tl-heading" style={{ fontSize: "clamp(28px,3.4vw,40px)", maxWidth: 700 }}>
+        <div className="tl-eyebrow">
+          <span className="tl-eyebrow-dot" />
+          <span>Năng lực thực thi</span>
+        </div>
+
+        <h2
+          className="tl-heading"
+          style={{
+            fontSize: "clamp(28px,3.2vw,40px)",
+            maxWidth: 720,
+            marginTop: 16
+          }}
+        >
           Thiết bị, công nghệ &amp; <em>kinh nghiệm thi công thực địa</em>
         </h2>
-        <p className="tl-lede" style={{ marginTop: 16 }}>
-          Đội ngũ và đối tác kỹ thuật của Thăng Long Energy sở hữu năng lực thi công
-          điện gió ngoài khơi, sản xuất thép công nghiệp và hạ tầng nền móng quy mô lớn.
+
+        <p className="tl-lede" style={{ marginTop: 14 }}>
+          Năng lực toàn diện trong thi công điện gió ngoài khơi, thiết bị siêu
+          trường siêu trọng, sản xuất ống thép và xử lý nền móng biển.
         </p>
 
-        <Tabs
-          activeKey={activeKey}
-          onChange={setActiveKey}
-          style={{ marginTop: 32 }}
-          items={capabilityGroups.map((g) => ({ key: g.key, label: g.label }))}
-        />
+        <div style={{ marginTop: 28, marginBottom: 20 }}>
+          <Tabs
+            activeKey={activeKey}
+            onChange={setActiveKey}
+            items={capabilityGroups.map((g) => ({
+              key: g.key,
+              label: (
+                <span>
+                  {g.label}{" "}
+                  <span
+                    style={{
+                      fontSize: 11.5,
+                      padding: "2px 8px",
+                      borderRadius: "var(--radius-full)",
+                      background: "#fef3c7",
+                      color: "var(--gold-dark)",
+                      fontWeight: 700,
+                      marginLeft: 4
+                    }}
+                  >
+                    {g.items.length}
+                  </span>
+                </span>
+              )
+            }))}
+          />
+        </div>
 
+        {/* Hidden lightbox container */}
         <div style={{ display: "none" }}>
           <Image.PreviewGroup
             preview={{
               visible: previewVisible,
               current: previewIndex,
               onVisibleChange: setPreviewVisible,
-              onChange: setPreviewIndex,
+              onChange: setPreviewIndex
             }}
           >
             {activeGroup.items.map((it, i) => (
@@ -48,9 +84,15 @@ export default function Capabilities() {
             <div
               className="tl-gallery-item"
               key={activeKey + i}
-              onClick={() => { setPreviewIndex(i); setPreviewVisible(true); }}
+              onClick={() => {
+                setPreviewIndex(i);
+                setPreviewVisible(true);
+              }}
             >
               <img src={it.src} alt={it.caption} loading="lazy" />
+              <div className="tl-gallery-overlay-icon">
+                <EyeOutlined />
+              </div>
               <div className="tl-gallery-cap">{it.caption}</div>
             </div>
           ))}

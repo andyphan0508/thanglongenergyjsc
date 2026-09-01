@@ -1,29 +1,35 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 import { ConfigProvider, theme } from "antd";
 import App from "./App.jsx";
 import "./index.css";
 
-const { darkAlgorithm } = theme;
+const { defaultAlgorithm } = theme;
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ConfigProvider
       theme={{
-        algorithm: darkAlgorithm,
+        algorithm: defaultAlgorithm,
         token: {
-          colorPrimary: "#d6a75c",
-          colorBgBase: "#0a0a0b",
-          colorBgContainer: "#16161a",
-          colorBorder: "rgba(255,255,255,0.09)",
-          colorText: "#f3efe6",
-          colorTextSecondary: "#a7a29a",
-          fontFamily: "Inter, -apple-system, sans-serif",
-          borderRadius: 10,
-        },
+          colorPrimary: "#d97706",
+          colorBgBase: "#ffffff",
+          colorBgContainer: "#ffffff",
+          colorBgElevated: "#ffffff",
+          colorBorder: "rgba(15, 23, 42, 0.09)",
+          colorBorderSecondary: "rgba(15, 23, 42, 0.05)",
+          colorText: "#0f172a",
+          colorTextSecondary: "#334155",
+          colorTextTertiary: "#64748b",
+          fontFamily: "'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif",
+          borderRadius: 12
+        }
       }}
     >
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </ConfigProvider>
   </React.StrictMode>
 );
