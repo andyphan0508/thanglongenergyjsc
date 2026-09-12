@@ -8,12 +8,38 @@ import {
   MailOutlined
 } from "@ant-design/icons";
 import { navLinks, company } from "../data/content";
+import { useLang } from "../i18n/LanguageContext";
+import { nav as navCopy } from "../i18n/copy";
+
+function LangToggle() {
+  const { lang, toggleLang } = useLang();
+  return (
+    <div className="tl-lang-toggle">
+      <button
+        type="button"
+        className={lang === "vi" ? "active" : ""}
+        onClick={() => lang !== "vi" && toggleLang()}
+      >
+        VI
+      </button>
+      <span>|</span>
+      <button
+        type="button"
+        className={lang === "en" ? "active" : ""}
+        onClick={() => lang !== "en" && toggleLang()}
+      >
+        EN
+      </button>
+    </div>
+  );
+}
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const { pathname } = useLocation();
+  const { t } = useLang();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,10 +65,8 @@ export default function Navbar() {
       <header
         className="tl-nav"
         style={{
-          boxShadow: scrolled ? "0 4px 20px rgba(15, 23, 42, 0.08)" : "none",
-          borderColor: scrolled
-            ? "rgba(217, 119, 6, 0.2)"
-            : "rgba(15, 23, 42, 0.08)"
+          boxShadow: scrolled ? "0 4px 20px rgba(28, 22, 12, 0.06)" : "none",
+          borderColor: scrolled ? "var(--border-gold)" : "var(--border)"
         }}
       >
         <div className="tl-nav-inner">
@@ -84,9 +108,9 @@ export default function Navbar() {
                     y2="20"
                     gradientUnits="userSpaceOnUse"
                   >
-                    <stop stopColor="#f59e0b" />
-                    <stop offset="0.5" stopColor="#d97706" />
-                    <stop offset="1" stopColor="#b45309" />
+                    <stop stopColor="#b3874a" />
+                    <stop offset="0.5" stopColor="#96702c" />
+                    <stop offset="1" stopColor="#6b4f21" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -97,7 +121,7 @@ export default function Navbar() {
             </span>
           </Link>
 
-          <Space size={12} className="tl-nav-desktop-wrap">
+          <Space size={16} className="tl-nav-desktop-wrap">
             <nav className="tl-nav-links tl-nav-desktop">
               {navLinks.map((l) => (
                 <NavLink
@@ -105,17 +129,20 @@ export default function Navbar() {
                   to={l.href}
                   className={({ isActive }) => (isActive ? "active" : "")}
                 >
-                  {l.label}
+                  {t(l.label)}
                 </NavLink>
               ))}
             </nav>
+            <span className="tl-nav-desktop">
+              <LangToggle />
+            </span>
             <Link to="/lien-he">
               <Button
                 className="tl-btn-gold tl-nav-cta"
                 icon={<ArrowRightOutlined />}
                 iconPosition="end"
               >
-                Liên hệ
+                {t(navCopy.contactCta)}
               </Button>
             </Link>
             <Button
@@ -140,15 +167,15 @@ export default function Navbar() {
           styles={{
             body: { background: "#ffffff", padding: "28px 24px" },
             header: {
-              background: "#f8fafc",
-              borderColor: "rgba(15, 23, 42, 0.08)"
+              background: "var(--bg-soft)",
+              borderColor: "var(--border)"
             }
           }}
           title={
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <div className="tl-brand-mark" style={{ width: 28, height: 28 }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                  <polygon points="12,5 19,17 5,17" fill="#d97706" />
+                  <polygon points="12,5 19,17 5,17" fill="#96702c" />
                 </svg>
               </div>
               <span
@@ -165,6 +192,7 @@ export default function Navbar() {
           }
         >
           <Space direction="vertical" size={16} style={{ width: "100%" }}>
+            <LangToggle />
             <div style={{ display: "grid", gap: 6 }}>
               {navLinks.map((l) => (
                 <NavLink
@@ -177,11 +205,11 @@ export default function Navbar() {
                     color: isActive ? "var(--gold-dark)" : "var(--text-secondary)",
                     padding: "10px 14px",
                     borderRadius: "var(--radius-md)",
-                    background: isActive ? "#fef3c7" : "transparent",
+                    background: isActive ? "var(--gold-light)" : "transparent",
                     display: "block"
                   })}
                 >
-                  {l.label}
+                  {t(l.label)}
                 </NavLink>
               ))}
             </div>
@@ -200,7 +228,7 @@ export default function Navbar() {
                   icon={<ArrowRightOutlined />}
                   iconPosition="end"
                 >
-                  Liên hệ hợp tác
+                  {t(navCopy.drawerCta)}
                 </Button>
               </Link>
               <div

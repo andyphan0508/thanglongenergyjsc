@@ -9,8 +9,11 @@ import {
   SafetyCertificateOutlined
 } from "@ant-design/icons";
 import { company, navLinks } from "../data/content";
+import { useLang } from "../i18n/LanguageContext";
+import { footer as copy } from "../i18n/copy";
 
 export default function Footer() {
+  const { t, lang } = useLang();
   const [showTopBtn, setShowTopBtn] = useState(false);
 
   useEffect(() => {
@@ -34,7 +37,7 @@ export default function Footer() {
             <div className="tl-brand" style={{ fontSize: 21 }}>
               <div className="tl-brand-mark">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <polygon points="12,5 19,17 5,17" fill="#d97706" />
+                  <polygon points="12,5 19,17 5,17" fill="#96702c" />
                 </svg>
               </div>
               <span>
@@ -47,9 +50,7 @@ export default function Footer() {
               className="tl-lede"
               style={{ marginTop: 16, fontSize: 14, lineHeight: 1.6 }}
             >
-              {company.nameVi} — Tiên phong đầu tư hạ tầng năng lượng tái tạo,
-              tổ hợp sản xuất tuabin gió và các khu công nghiệp trọng điểm quốc
-              gia.
+              {lang === "vi" ? company.nameVi : company.nameEn} — {t(copy.tagline)}
             </p>
 
             <div
@@ -67,14 +68,14 @@ export default function Footer() {
                   gap: 6,
                   fontSize: 12,
                   color: "var(--gold-dark)",
-                  background: "#fef3c7",
+                  background: "var(--gold-light)",
                   padding: "5px 12px",
                   borderRadius: "var(--radius-full)",
-                  border: "1px solid rgba(217, 119, 6, 0.25)",
+                  border: "1px solid var(--border-gold)",
                   fontWeight: 600
                 }}
               >
-                <SafetyCertificateOutlined /> MST: {company.taxCode}
+                <SafetyCertificateOutlined /> {t(copy.taxCodeLabel)}: {company.taxCode}
               </span>
               <span
                 style={{
@@ -83,14 +84,14 @@ export default function Footer() {
                   gap: 6,
                   fontSize: 12,
                   color: "var(--text-secondary)",
-                  background: "#f1f5f9",
+                  background: "var(--bg-subtle)",
                   padding: "5px 12px",
                   borderRadius: "var(--radius-full)",
                   border: "1px solid var(--border)",
                   fontWeight: 600
                 }}
               >
-                Vốn ĐL: {company.charterCapital}
+                {t(copy.capitalLabel)}: {company.charterCapital}
               </span>
             </div>
           </Col>
@@ -106,7 +107,7 @@ export default function Footer() {
                 fontWeight: 700
               }}
             >
-              Thông tin liên hệ
+              {t(copy.contactHeading)}
             </h4>
 
             <div style={{ display: "grid", gap: 10 }}>
@@ -122,7 +123,7 @@ export default function Footer() {
                       fontWeight: 700
                     }}
                   >
-                    Trụ sở điều hành
+                    {t(copy.officeLabel)}
                   </div>
                   <div
                     style={{
@@ -152,7 +153,7 @@ export default function Footer() {
                       fontWeight: 700
                     }}
                   >
-                    Hotline trực tiếp
+                    {t(copy.hotlineLabel)}
                   </div>
                   <div
                     style={{
@@ -182,7 +183,7 @@ export default function Footer() {
                       fontWeight: 700
                     }}
                   >
-                    Hộp thư điện tử
+                    {t(copy.emailLabel)}
                   </div>
                   <div
                     style={{
@@ -210,7 +211,7 @@ export default function Footer() {
                 fontWeight: 700
               }}
             >
-              Điều hướng nhanh
+              {t(copy.quickLinksHeading)}
             </h4>
             <div style={{ display: "grid", gap: 6 }}>
               {navLinks.map((l) => (
@@ -237,7 +238,7 @@ export default function Footer() {
                   <span style={{ color: "var(--gold-dark)", fontSize: 10 }}>
                     ›
                   </span>
-                  {l.label}
+                  {t(l.label)}
                 </Link>
               ))}
             </div>
@@ -260,11 +261,13 @@ export default function Footer() {
           }}
         >
           <span>
-            © {new Date().getFullYear()} {company.nameEn}. Bảo lưu mọi quyền.
+            © {new Date().getFullYear()} {company.nameEn}. {t(copy.rightsReserved)}
           </span>
           <span>
-            Đại diện pháp luật:{" "}
-            <strong style={{ color: "var(--text)" }}>{company.legalRep}</strong>
+            {t(copy.legalRepLabel)}:{" "}
+            <strong style={{ color: "var(--text)" }}>
+              {company.legalRepName} — {t(company.legalRepTitle)}
+            </strong>
           </span>
         </div>
       </div>
@@ -275,8 +278,8 @@ export default function Footer() {
           type="button"
           className="tl-back-to-top"
           onClick={scrollToTop}
-          title="Về đầu trang"
-          aria-label="Về đầu trang"
+          title={t(copy.backToTop)}
+          aria-label={t(copy.backToTop)}
         >
           <ArrowUpOutlined />
         </button>

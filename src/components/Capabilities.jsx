@@ -2,8 +2,11 @@ import { useState } from "react";
 import { Tabs, Image } from "antd";
 import { EyeOutlined } from "@ant-design/icons";
 import { capabilityGroups } from "../data/content";
+import { useLang } from "../i18n/LanguageContext";
+import { capabilities as copy } from "../i18n/copy";
 
 export default function Capabilities() {
+  const { t } = useLang();
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewIndex, setPreviewIndex] = useState(0);
   const [activeKey, setActiveKey] = useState(capabilityGroups[0].key);
@@ -15,8 +18,7 @@ export default function Capabilities() {
     <section className="tl-section">
       <div className="tl-container">
         <div className="tl-eyebrow">
-          <span className="tl-eyebrow-dot" />
-          <span>Năng lực thực thi</span>
+          <span>{t(copy.eyebrow)}</span>
         </div>
 
         <h2
@@ -27,12 +29,13 @@ export default function Capabilities() {
             marginTop: 16
           }}
         >
-          Thiết bị, công nghệ &amp; <em>kinh nghiệm thi công thực địa</em>
+          {t(copy.headingPre)}
+          <em>{t(copy.headingEm)}</em>
+          {t(copy.headingPost)}
         </h2>
 
         <p className="tl-lede" style={{ marginTop: 14 }}>
-          Năng lực toàn diện trong thi công điện gió ngoài khơi, thiết bị siêu
-          trường siêu trọng, sản xuất ống thép và xử lý nền móng biển.
+          {t(copy.lede)}
         </p>
 
         <div style={{ marginTop: 28, marginBottom: 20 }}>
@@ -43,13 +46,13 @@ export default function Capabilities() {
               key: g.key,
               label: (
                 <span>
-                  {g.label}{" "}
+                  {t(g.label)}{" "}
                   <span
                     style={{
                       fontSize: 11.5,
                       padding: "2px 8px",
                       borderRadius: "var(--radius-full)",
-                      background: "#fef3c7",
+                      background: "var(--gold-light)",
                       color: "var(--gold-dark)",
                       fontWeight: 700,
                       marginLeft: 4
@@ -74,7 +77,7 @@ export default function Capabilities() {
             }}
           >
             {activeGroup.items.map((it, i) => (
-              <Image key={i} src={it.src} alt={it.caption} />
+              <Image key={i} src={it.src} alt={t(it.caption)} />
             ))}
           </Image.PreviewGroup>
         </div>
@@ -89,11 +92,11 @@ export default function Capabilities() {
                 setPreviewVisible(true);
               }}
             >
-              <img src={it.src} alt={it.caption} loading="lazy" />
+              <img src={it.src} alt={t(it.caption)} loading="lazy" />
               <div className="tl-gallery-overlay-icon">
                 <EyeOutlined />
               </div>
-              <div className="tl-gallery-cap">{it.caption}</div>
+              <div className="tl-gallery-cap">{t(it.caption)}</div>
             </div>
           ))}
         </div>

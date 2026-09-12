@@ -4,21 +4,17 @@ import {
   SafetyCertificateOutlined
 } from "@ant-design/icons";
 import { leadership } from "../data/content";
-
-const badges = [
-  "40+ năm Công nghệ cao Hoa Kỳ",
-  "Cựu Chủ tịch NCC (Irvine, California)",
-  "Chuyên gia Điện rác Plasma & Năng lượng tái tạo",
-  "Công nghệ tấm 3D (Cộng hòa Áo)"
-];
+import { useLang } from "../i18n/LanguageContext";
+import { leadership as copy } from "../i18n/copy";
 
 export default function Leadership() {
+  const { t } = useLang();
+
   return (
     <section className="tl-section">
       <div className="tl-container">
         <div className="tl-eyebrow">
-          <span className="tl-eyebrow-dot" />
-          <span>Ban lãnh đạo cấp cao</span>
+          <span>{t(copy.eyebrow)}</span>
         </div>
 
         <h2
@@ -29,12 +25,13 @@ export default function Leadership() {
             marginTop: 16
           }}
         >
-          Kinh nghiệm quốc tế, tầm nhìn <em>công nghệ &amp; năng lượng</em>
+          {t(copy.headingPre)}
+          <em>{t(copy.headingEm)}</em>
+          {t(copy.headingPost)}
         </h2>
 
         <p className="tl-lede" style={{ marginTop: 14 }}>
-          Hơn 4 thập kỷ cống hiến trong công nghiệp máy tính, tài chính bất động
-          sản và năng lượng sạch tại Hoa Kỳ và quốc tế.
+          {t(copy.lede)}
         </p>
 
         <div className="tl-lead-card" style={{ marginTop: 36 }}>
@@ -47,9 +44,8 @@ export default function Leadership() {
                 position: "absolute",
                 top: 18,
                 left: 18,
-                background: "rgba(255, 255, 255, 0.92)",
-                backdropFilter: "blur(10px)",
-                border: "1px solid rgba(217, 119, 6, 0.3)",
+                background: "rgba(255, 255, 255, 0.94)",
+                border: "1px solid var(--border-gold)",
                 borderRadius: "var(--radius-full)",
                 padding: "6px 16px",
                 display: "inline-flex",
@@ -57,12 +53,11 @@ export default function Leadership() {
                 gap: 6,
                 color: "var(--gold-dark)",
                 fontSize: 12.5,
-                fontWeight: 700,
-                boxShadow: "0 2px 8px rgba(15, 23, 42, 0.08)"
+                fontWeight: 700
               }}
             >
               <CrownOutlined style={{ color: "var(--gold-dark)" }} />
-              Chủ tịch HĐQT
+              {t(leadership.title)}
             </div>
           </div>
 
@@ -87,7 +82,7 @@ export default function Leadership() {
                 {leadership.name}
               </h3>
               <span style={{ color: "var(--text-muted)", fontSize: 14 }}>
-                ({leadership.nameEn}, sinh năm {leadership.born})
+                ({leadership.nameEn}, {t(copy.born)} {leadership.born})
               </span>
             </div>
 
@@ -100,14 +95,8 @@ export default function Leadership() {
                 flexWrap: "wrap"
               }}
             >
-              <span
-                style={{
-                  color: "var(--gold-dark)",
-                  fontSize: 14.5,
-                  fontWeight: 700
-                }}
-              >
-                {leadership.title}
+              <span style={{ color: "var(--gold-dark)", fontSize: 14.5, fontWeight: 700 }}>
+                {t(leadership.title)}
               </span>
               <span style={{ color: "var(--text-faint)" }}>•</span>
               <span
@@ -120,10 +109,8 @@ export default function Leadership() {
                   fontWeight: 500
                 }}
               >
-                <SafetyCertificateOutlined
-                  style={{ color: "var(--gold-dark)" }}
-                />{" "}
-                {leadership.nationality}
+                <SafetyCertificateOutlined style={{ color: "var(--gold-dark)" }} />{" "}
+                {t(leadership.nationality)}
               </span>
             </div>
 
@@ -137,20 +124,20 @@ export default function Leadership() {
                 marginBottom: 10
               }}
             >
-              {badges.map((b, idx) => (
+              {copy.badges.map((b, idx) => (
                 <span
                   key={idx}
                   style={{
                     fontSize: 12,
                     padding: "4px 12px",
-                    background: "#fef3c7",
-                    border: "1px solid rgba(217, 119, 6, 0.25)",
+                    background: "var(--gold-light)",
+                    border: "1px solid var(--border-gold)",
                     borderRadius: "var(--radius-full)",
                     color: "var(--gold-dark)",
                     fontWeight: 600
                   }}
                 >
-                  {b}
+                  {t(b)}
                 </span>
               ))}
             </div>
@@ -161,14 +148,8 @@ export default function Leadership() {
                   <div className="tl-lead-achieve-icon">
                     <CheckOutlined />
                   </div>
-                  <span
-                    style={{
-                      color: "var(--text-secondary)",
-                      fontSize: 13.5,
-                      lineHeight: 1.6
-                    }}
-                  >
-                    {a}
+                  <span style={{ color: "var(--text-secondary)", fontSize: 13.5, lineHeight: 1.6 }}>
+                    {t(a)}
                   </span>
                 </div>
               ))}

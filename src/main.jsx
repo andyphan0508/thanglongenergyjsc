@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { ConfigProvider, theme } from "antd";
+import { LanguageProvider } from "./i18n/LanguageContext.jsx";
 import App from "./App.jsx";
 import "./index.css";
 
@@ -13,23 +14,25 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       theme={{
         algorithm: defaultAlgorithm,
         token: {
-          colorPrimary: "#d97706",
+          colorPrimary: "#96702c",
           colorBgBase: "#ffffff",
           colorBgContainer: "#ffffff",
           colorBgElevated: "#ffffff",
-          colorBorder: "rgba(15, 23, 42, 0.09)",
-          colorBorderSecondary: "rgba(15, 23, 42, 0.05)",
-          colorText: "#0f172a",
-          colorTextSecondary: "#334155",
-          colorTextTertiary: "#64748b",
-          fontFamily: "'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif",
-          borderRadius: 12
+          colorBorder: "rgba(28, 22, 12, 0.09)",
+          colorBorderSecondary: "rgba(28, 22, 12, 0.05)",
+          colorText: "#1c1710",
+          colorTextSecondary: "#4a4236",
+          colorTextTertiary: "#79705f",
+          fontFamily: "'Inter', -apple-system, sans-serif",
+          borderRadius: 8
         }
       }}
     >
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <LanguageProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </LanguageProvider>
     </ConfigProvider>
   </React.StrictMode>
 );

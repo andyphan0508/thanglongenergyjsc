@@ -10,62 +10,57 @@ import {
   ArrowRightOutlined
 } from "@ant-design/icons";
 import { company } from "../data/content";
-
-const contactChannels = [
-  {
-    icon: <EnvironmentOutlined />,
-    label: "Trụ sở điều hành",
-    value: company.address
-  },
-  {
-    icon: <PhoneOutlined />,
-    label: "Hotline trực tiếp",
-    value: company.phone,
-    href: `tel:${company.phone.replace(/\s+/g, "")}`
-  },
-  {
-    icon: <MailOutlined />,
-    label: "Hộp thư điện tử",
-    value: "lienhe@thanglongenergy.vn",
-    href: "mailto:lienhe@thanglongenergy.vn"
-  },
-  {
-    icon: <ClockCircleOutlined />,
-    label: "Giờ làm việc",
-    value: "Thứ 2 – Thứ 6, 08:00 – 17:30"
-  }
-];
-
-const legalFacts = [
-  { icon: <IdcardOutlined />, label: "Mã số thuế", value: company.taxCode },
-  {
-    icon: <BankOutlined />,
-    label: "Vốn điều lệ",
-    value: company.charterCapital
-  },
-  { icon: <UserOutlined />, label: "Đại diện pháp luật", value: company.legalRep }
-];
+import { useLang } from "../i18n/LanguageContext";
+import { contactPage as copy } from "../i18n/copy";
 
 export default function Contact() {
+  const { t } = useLang();
+
+  const contactChannels = [
+    { icon: <EnvironmentOutlined />, label: t(copy.officeLabel), value: company.address },
+    {
+      icon: <PhoneOutlined />,
+      label: t(copy.hotlineLabel),
+      value: company.phone,
+      href: `tel:${company.phone.replace(/\s+/g, "")}`
+    },
+    {
+      icon: <MailOutlined />,
+      label: t(copy.emailLabel),
+      value: "lienhe@thanglongenergy.vn",
+      href: "mailto:lienhe@thanglongenergy.vn"
+    },
+    { icon: <ClockCircleOutlined />, label: t(copy.hoursLabel), value: t(copy.hoursValue) }
+  ];
+
+  const legalFacts = [
+    { icon: <IdcardOutlined />, label: t(copy.taxCodeLabel), value: company.taxCode },
+    { icon: <BankOutlined />, label: t(copy.capitalLabel), value: company.charterCapital },
+    {
+      icon: <UserOutlined />,
+      label: t(copy.legalRepLabel),
+      value: `${company.legalRepName} — ${t(company.legalRepTitle)}`
+    }
+  ];
+
   return (
     <section className="tl-section" id="lien-he">
       <div className="tl-container">
         <div className="tl-eyebrow">
-          <span className="tl-eyebrow-dot" />
-          <span>Kết nối hợp tác</span>
+          <span>{t(copy.eyebrow)}</span>
         </div>
 
         <h2
           className="tl-heading"
           style={{ fontSize: "clamp(28px,3.2vw,40px)", maxWidth: 720, marginTop: 16 }}
         >
-          Sẵn sàng đồng hành cùng <em>đối tác chiến lược</em>
+          {t(copy.headingPre)}
+          <em>{t(copy.headingEm)}</em>
+          {t(copy.headingPost)}
         </h2>
 
         <p className="tl-lede" style={{ marginTop: 14, maxWidth: 640 }}>
-          Đội ngũ {company.shortName} luôn sẵn sàng tiếp nhận thông tin hợp
-          tác đầu tư, chuyển giao công nghệ và phát triển dự án. Liên hệ trực
-          tiếp qua các kênh dưới đây.
+          {company.shortName} {t(copy.lede)}
         </p>
 
         <Row gutter={[48, 40]} style={{ marginTop: 36 }}>
@@ -82,13 +77,7 @@ export default function Contact() {
                   >
                     <div className="tl-contact-icon">{c.icon}</div>
                     <div>
-                      <div
-                        style={{
-                          fontSize: 12,
-                          color: "var(--gold-dark)",
-                          fontWeight: 700
-                        }}
-                      >
+                      <div style={{ fontSize: 12, color: "var(--gold-dark)", fontWeight: 700 }}>
                         {c.label}
                       </div>
                       <div
@@ -116,15 +105,12 @@ export default function Contact() {
               iconPosition="end"
               style={{ marginTop: 24 }}
             >
-              Gửi email hợp tác
+              {t(copy.emailButton)}
             </Button>
           </Col>
 
           <Col xs={24} lg={10}>
-            <div
-              className="tl-card"
-              style={{ padding: "28px 24px", height: "100%" }}
-            >
+            <div className="tl-card" style={{ padding: "28px 24px", height: "100%" }}>
               <h4
                 style={{
                   color: "var(--text)",
@@ -134,7 +120,7 @@ export default function Contact() {
                   fontWeight: 700
                 }}
               >
-                Thông tin pháp nhân
+                {t(copy.legalHeading)}
               </h4>
 
               <div style={{ display: "grid", gap: 16 }}>
@@ -148,7 +134,7 @@ export default function Contact() {
                       letterSpacing: 0.4
                     }}
                   >
-                    Tên doanh nghiệp
+                    {t(copy.companyNameLabel)}
                   </div>
                   <div
                     style={{
@@ -178,13 +164,7 @@ export default function Contact() {
                       {f.icon}
                     </div>
                     <div>
-                      <div
-                        style={{
-                          fontSize: 12,
-                          color: "var(--gold-dark)",
-                          fontWeight: 700
-                        }}
-                      >
+                      <div style={{ fontSize: 12, color: "var(--gold-dark)", fontWeight: 700 }}>
                         {f.label}
                       </div>
                       <div

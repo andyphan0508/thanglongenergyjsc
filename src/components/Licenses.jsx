@@ -2,8 +2,11 @@ import { useState } from "react";
 import { Row, Col, Image } from "antd";
 import { SafetyCertificateOutlined, EyeOutlined } from "@ant-design/icons";
 import { licenseDocs } from "../data/content";
+import { useLang } from "../i18n/LanguageContext";
+import { licensesPage as copy } from "../i18n/copy";
 
 export default function Licenses() {
+  const { t } = useLang();
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewIndex, setPreviewIndex] = useState(0);
 
@@ -11,8 +14,7 @@ export default function Licenses() {
     <section className="tl-section">
       <div className="tl-container">
         <div className="tl-eyebrow">
-          <span className="tl-eyebrow-dot" />
-          <span>Hồ sơ pháp lý minh bạch</span>
+          <span>{t(copy.eyebrow)}</span>
         </div>
 
         <h2
@@ -23,12 +25,13 @@ export default function Licenses() {
             marginTop: 16
           }}
         >
-          Giấy phép &amp; <em>chứng nhận đầu tư chính thức</em>
+          {t(copy.headingPre)}
+          <em>{t(copy.headingEm)}</em>
+          {t(copy.headingPost)}
         </h2>
 
         <p className="tl-lede" style={{ marginTop: 14 }}>
-          Toàn bộ hồ sơ đăng ký doanh nghiệp, chứng nhận đầu tư và quy hoạch xây
-          dựng được cấp bởi cơ quan nhà nước có thẩm quyền.
+          {t(copy.lede)}
         </p>
 
         <div style={{ display: "none" }}>
@@ -41,7 +44,7 @@ export default function Licenses() {
             }}
           >
             {licenseDocs.map((d, i) => (
-              <Image key={i} src={d.src} alt={d.title} />
+              <Image key={i} src={d.src} alt={t(d.title)} />
             ))}
           </Image.PreviewGroup>
         </div>
@@ -59,7 +62,7 @@ export default function Licenses() {
                   role="button"
                   tabIndex={0}
                 >
-                  <img src={d.src} alt={d.title} loading="lazy" />
+                  <img src={d.src} alt={t(d.title)} loading="lazy" />
                   <div className="tl-gallery-overlay-icon">
                     <EyeOutlined />
                   </div>
@@ -69,7 +72,6 @@ export default function Licenses() {
                       bottom: 8,
                       left: 8,
                       background: "rgba(255, 255, 255, 0.9)",
-                      backdropFilter: "blur(4px)",
                       border: "1px solid var(--border)",
                       borderRadius: 4,
                       padding: "2px 6px",
@@ -78,7 +80,7 @@ export default function Licenses() {
                       fontWeight: 700
                     }}
                   >
-                    Văn bản 0{i + 1}
+                    {t(copy.docLabel)} 0{i + 1}
                   </div>
                 </div>
 
@@ -87,7 +89,7 @@ export default function Licenses() {
                     <SafetyCertificateOutlined
                       style={{ color: "var(--gold-dark)", marginRight: 6 }}
                     />
-                    {d.title}
+                    {t(d.title)}
                   </b>
                   <span
                     style={{
@@ -97,7 +99,7 @@ export default function Licenses() {
                       lineHeight: 1.45
                     }}
                   >
-                    {d.desc}
+                    {t(d.desc)}
                   </span>
                 </div>
               </div>
