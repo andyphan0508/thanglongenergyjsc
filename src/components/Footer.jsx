@@ -11,6 +11,7 @@ import {
 import { company, navLinks } from "../data/content";
 import { useLang } from "../i18n/LanguageContext";
 import { footer as copy } from "../i18n/copy";
+import logoMark from "../assets/derived/logo-mark.png";
 
 export default function Footer() {
   const { t, lang } = useLang();
@@ -36,13 +37,11 @@ export default function Footer() {
           <Col xs={24} lg={10}>
             <div className="tl-brand" style={{ fontSize: 21 }}>
               <div className="tl-brand-mark">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <polygon points="12,5 19,17 5,17" fill="#96702c" />
-                </svg>
+                <img src={logoMark} alt="Thăng Long International Energy JSC" />
               </div>
               <span>
-                Thăng Long Energy
-                <small>International JSC</small>
+                Thăng Long International Energy
+                <small>JSC</small>
               </span>
             </div>
 

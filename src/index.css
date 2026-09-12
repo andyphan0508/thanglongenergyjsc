@@ -304,10 +304,23 @@ a {
   align-items: center;
   gap: 12px;
   font-family: var(--font-serif);
-  font-size: 19px;
+  font-size: 17px;
   font-weight: 700;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.005em;
   color: var(--text);
+  line-height: 1.2;
+}
+
+.tl-nav .tl-brand {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .tl-nav .tl-brand {
+    font-size: 13.5px;
+    gap: 8px;
+  }
 }
 
 .tl-brand-mark {
@@ -320,6 +333,13 @@ a {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  overflow: hidden;
+}
+
+.tl-brand-mark img {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
 }
 
 .tl-brand small {

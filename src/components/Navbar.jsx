@@ -10,6 +10,7 @@ import {
 import { navLinks, company } from "../data/content";
 import { useLang } from "../i18n/LanguageContext";
 import { nav as navCopy } from "../i18n/copy";
+import logoMark from "../assets/derived/logo-mark.png";
 
 function LangToggle() {
   const { lang, toggleLang } = useLang();
@@ -72,52 +73,11 @@ export default function Navbar() {
         <div className="tl-nav-inner">
           <Link to="/" className="tl-brand">
             <div className="tl-brand-mark">
-              <svg
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="9"
-                  stroke="url(#goldGrad)"
-                  strokeWidth="1.75"
-                  strokeDasharray="3 2"
-                />
-                <path
-                  d="M12 4V20M4 12H20"
-                  stroke="url(#goldGrad)"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  opacity="0.6"
-                />
-                <polygon
-                  points="12,6 17,15 7,15"
-                  fill="url(#goldGrad)"
-                  opacity="0.95"
-                />
-                <defs>
-                  <linearGradient
-                    id="goldGrad"
-                    x1="4"
-                    y1="4"
-                    x2="20"
-                    y2="20"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop stopColor="#b3874a" />
-                    <stop offset="0.5" stopColor="#96702c" />
-                    <stop offset="1" stopColor="#6b4f21" />
-                  </linearGradient>
-                </defs>
-              </svg>
+              <img src={logoMark} alt="Thăng Long International Energy JSC" />
             </div>
             <span>
-              Thăng Long Energy
-              <small>International JSC</small>
+              Thăng Long International Energy
+              <small>JSC</small>
             </span>
           </Link>
 
@@ -174,19 +134,18 @@ export default function Navbar() {
           title={
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <div className="tl-brand-mark" style={{ width: 28, height: 28 }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                  <polygon points="12,5 19,17 5,17" fill="#96702c" />
-                </svg>
+                <img src={logoMark} alt="Thăng Long International Energy JSC" />
               </div>
               <span
                 style={{
                   fontFamily: "var(--font-serif)",
-                  fontSize: 17,
+                  fontSize: 15.5,
                   color: "var(--text)",
-                  fontWeight: 700
+                  fontWeight: 700,
+                  lineHeight: 1.25
                 }}
               >
-                Thăng Long Energy
+                Thăng Long International Energy JSC
               </span>
             </div>
           }
