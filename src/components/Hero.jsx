@@ -93,7 +93,7 @@ function HeroVisual() {
 
 function PartnerMarquee() {
   const { t } = useLang();
-  const row = partnerLogos.slice(0, 22);
+  const row = partnerLogos;
 
   return (
     <section className="tl-marquee-band" aria-label={t(copy.partnersLabel)}>
@@ -103,9 +103,9 @@ function PartnerMarquee() {
       <div className="tl-marquee">
         {/* Rendered twice so translateX(-50%) loops seamlessly. */}
         <div className="tl-marquee-track">
-          {[...row, ...row].map((name, i) => (
+          {[...row, ...row].map((p, i) => (
             <span className="tl-marquee-item" key={i} aria-hidden={i >= row.length}>
-              {name}
+              <img src={p.logo} alt={i < row.length ? p.name : ""} loading="lazy" />
             </span>
           ))}
         </div>

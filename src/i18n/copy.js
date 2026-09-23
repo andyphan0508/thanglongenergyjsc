@@ -165,12 +165,7 @@ export const partners = {
     vi: "Mạng lưới nhà thầu và đối tác chuyển giao công nghệ hàng đầu từ Hoa Kỳ, CHLB Đức, Hàn Quốc và Việt Nam.",
     en: "A network of leading contractors and technology-transfer partners from the U.S., Germany, South Korea, and Vietnam."
   },
-  directoryHeading: {
-    vi: "Danh mục đối tác & khách hàng theo hồ sơ năng lực",
-    en: "Partner & client directory (capability profile)"
-  },
-  directoryCaption: { vi: "Danh mục đối tác — Trang", en: "Partner Directory — Page" },
-  directoryAlt: { vi: "Đối tác & Khách hàng trang", en: "Partners & Clients, page" }
+  countLabel: { vi: "Đối tác & khách hàng", en: "Partners & clients" }
 };
 
 export const contactPage = {

@@ -1010,17 +1010,31 @@ a {
 }
 
 .tl-marquee-item {
-  padding: 10px 20px;
-  border-radius: var(--radius-full);
-  background: var(--glass);
+  display: grid;
+  place-items: center;
+  height: 64px;
+  padding: 0 24px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 253, 248, 0.7);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-edge);
-  font-size: 13.5px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  white-space: nowrap;
+  box-shadow: var(--glass-edge), 0 10px 24px -16px rgba(60, 44, 18, 0.3);
+}
+
+.tl-marquee-item img {
+  height: 36px;
+  width: auto;
+  max-width: 150px;
+  object-fit: contain;
+  filter: grayscale(1) contrast(1.1);
+  opacity: 0.7;
+  transition: filter 0.4s ease, opacity 0.4s ease;
+}
+
+.tl-marquee-item:hover img {
+  filter: none;
+  opacity: 1;
 }
 
 /* Home project bento */
@@ -1181,23 +1195,34 @@ a {
 }
 
 /* Scroll reveal (gated by JS so no-JS users see everything) */
-.tl-js-reveal main .tl-section,
-.tl-js-reveal main .tl-reveal {
+.tl-js-reveal main .tl-section {
   opacity: 0;
   transform: translate3d(0, 34px, 0);
   transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
-  transition-delay: calc(var(--i, 0) * 110ms);
 }
 
-.tl-js-reveal main .tl-section.is-in,
-.tl-js-reveal main .tl-reveal.is-in {
+.tl-js-reveal main .tl-section.is-in {
   opacity: 1;
   transform: none;
 }
 
-/* Hover transform on bento must win over the reveal's settled state */
-.tl-js-reveal main .tl-bento-tile.is-in:hover {
-  transform: translateY(-6px);
+/* Items animate in with backwards fill: once settled they fall back to their
+   own transform, so hover lifts aren't delayed by the stagger. */
+.tl-js-reveal main .tl-reveal {
+  opacity: 0;
+}
+
+.tl-js-reveal main .tl-reveal.is-in {
+  opacity: 1;
+  animation: tl-reveal-in 0.9s var(--ease-out) backwards;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+
+@keyframes tl-reveal-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 30px, 0) scale(0.98);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1590,21 +1615,140 @@ a {
   font-weight: 700;
 }
 
-/* Partners Tag */
-.tl-partner-tag {
-  border: 1px solid var(--border) !important;
-  background: #ffffff !important;
-  color: var(--text-secondary) !important;
-  border-radius: var(--radius-full) !important;
-  padding: 8px 18px !important;
-  font-size: 13.5px !important;
-  font-weight: 500 !important;
-  transition: all 0.2s ease !important;
+/* Partners — logo wall */
+.tl-partners-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 32px;
+  flex-wrap: wrap;
 }
 
-.tl-partner-tag:hover {
-  border-color: var(--gold) !important;
-  color: var(--gold-dark) !important;
+.tl-partners-count {
+  display: flex;
+  flex-direction: column;
+  padding: 18px 26px;
+  border-radius: var(--radius-lg);
+  background: var(--glass);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-edge), var(--shadow-card);
+}
+
+.tl-partners-count strong {
+  font-family: var(--font-serif);
+  font-size: 40px;
+  line-height: 1;
+  color: var(--gold-dark);
+}
+
+.tl-partners-count span {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.tl-logo-wall {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
+  margin-top: 44px;
+}
+
+.tl-logo-tile {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  display: grid;
+  place-items: center;
+  padding: 22px 22px 30px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 253, 248, 0.62);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-edge), 0 14px 30px -20px rgba(60, 44, 18, 0.3);
+  overflow: hidden;
+  transition: transform 0.5s var(--ease-spring), box-shadow 0.5s var(--ease-out), border-color 0.3s ease;
+}
+
+/* Soft gold light that rises into the tile on hover */
+.tl-logo-tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 80% at 50% 120%, rgba(214, 178, 110, 0.28), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.tl-logo-tile img {
+  max-width: 100%;
+  max-height: 64px;
+  object-fit: contain;
+  filter: grayscale(1) contrast(1.08);
+  opacity: 0.72;
+  transition: filter 0.5s ease, opacity 0.5s ease, transform 0.6s var(--ease-spring);
+}
+
+.tl-logo-name {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  text-align: center;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 0 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.4s ease, transform 0.4s var(--ease-out);
+}
+
+.tl-logo-tile:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-gold);
+  box-shadow: var(--glass-edge), var(--shadow-card-hover);
+}
+
+.tl-logo-tile:hover::before,
+.tl-logo-tile:hover .tl-logo-name {
+  opacity: 1;
+  transform: none;
+}
+
+.tl-logo-tile:hover img {
+  filter: none;
+  opacity: 1;
+  transform: scale(1.06) translateY(-4px);
+}
+
+/* Touch screens have no hover: show logos in colour */
+@media (hover: none) {
+  .tl-logo-tile img {
+    filter: none;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 520px) {
+  .tl-logo-wall {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .tl-logo-tile {
+    padding: 16px;
+  }
+  .tl-logo-tile img {
+    max-height: 48px;
+  }
 }
 
 /* Footer */

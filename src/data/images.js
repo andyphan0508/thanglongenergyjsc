@@ -23,3 +23,6 @@ function toMap(modules) {
 export const hsnl = toMap(hsnlModules);
 export const anphu = toMap(anphuModules);
 export const licenses = toMap(licenseModules);
+export const partnerImages = toMap(
+  import.meta.glob("../assets/partners/*.png", { eager: true, import: "default" })
+);

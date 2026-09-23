@@ -1,4 +1,4 @@
-import { hsnl, anphu, licenses } from "./images";
+import { hsnl, anphu, licenses, partnerImages } from "./images";
 
 export const company = {
   nameVi: "Công ty Cổ phần Quốc tế Năng lượng Thăng Long",
@@ -518,7 +518,7 @@ export const licenseDocs = [
   }
 ];
 
-export const partnerLogos = [
+const partnerNames = [
   "KECC",
   "SunDay",
   "Hyundai E&C",
@@ -534,7 +534,7 @@ export const partnerLogos = [
   "POSCO E&C",
   "Cienco 4",
   "Cienco 5",
-  "Cienco 6",
+  "Cienco 8",
   "PetroVietnam PVC",
   "Ssangyong Construction",
   "Hanshin",
@@ -564,4 +564,10 @@ export const partnerLogos = [
   "Ports America"
 ];
 
-export const partnerPages = [hsnl["hsnl-51"], hsnl["hsnl-52"]];
+// Logos cut from the capability-profile scans (hsnl-51/52); files are
+// numbered in the same order as partnerNames.
+const partnerFiles = Object.keys(partnerImages).sort();
+export const partnerLogos = partnerNames.map((name, i) => ({
+  name,
+  logo: partnerImages[partnerFiles[i]]
+}));
