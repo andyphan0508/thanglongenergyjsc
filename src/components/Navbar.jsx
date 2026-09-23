@@ -63,13 +63,7 @@ export default function Navbar() {
         className="tl-scroll-progress"
         style={{ width: `${scrollProgress}%` }}
       />
-      <header
-        className="tl-nav"
-        style={{
-          boxShadow: scrolled ? "0 4px 20px rgba(28, 22, 12, 0.06)" : "none",
-          borderColor: scrolled ? "var(--border-gold)" : "var(--border)"
-        }}
-      >
+      <header className={`tl-nav ${scrolled ? "is-scrolled" : ""}`}>
         <div className="tl-nav-inner">
           <Link to="/" className="tl-brand">
             <div className="tl-brand-mark">
@@ -111,8 +105,8 @@ export default function Navbar() {
               icon={<MenuOutlined />}
               onClick={() => setOpen(true)}
               style={{
-                background: "#ffffff",
-                borderColor: "var(--border-strong)",
+                background: "var(--glass-strong)",
+                borderColor: "var(--glass-border)",
                 color: "var(--gold-dark)"
               }}
             />

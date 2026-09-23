@@ -35,7 +35,16 @@ export const hero = {
   },
   ctaPrimary: { vi: "3 Đại dự án trọng điểm", en: "3 Flagship Projects" },
   ctaSecondary: { vi: "Hồ sơ pháp lý", en: "Legal Dossier" },
-  visualCaption: { vi: "Tầm nhìn hạ tầng năng lượng — công nghiệp", en: "A vision for energy & industrial infrastructure" }
+  visualCaption: { vi: "Tầm nhìn hạ tầng năng lượng — công nghiệp", en: "A vision for energy & industrial infrastructure" },
+  status: { vi: "Đang triển khai 3 đại dự án", en: "3 flagship projects in progress" },
+  floatCapacity: { vi: "Công suất tuabin / năm", en: "Turbine output / year" },
+  floatCorridor: { vi: "Hành lang kinh tế Xuyên Á", en: "Trans-Asia economic corridor" },
+  partnersLabel: { vi: "Mạng lưới đối tác quốc tế", en: "International partner network" },
+  projectsEyebrow: { vi: "Danh mục đầu tư", en: "Portfolio" },
+  projectsTitlePre: { vi: "Ba đại dự án ", en: "Three flagship " },
+  projectsTitleEm: { vi: "định hình khu vực", en: "regional projects" },
+  projectsCta: { vi: "Xem toàn bộ dự án", en: "View all projects" },
+  projectsOpen: { vi: "Chi tiết", en: "Details" }
 };
 
 export const about = {

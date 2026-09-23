@@ -23,7 +23,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           colorText: "#1c1710",
           colorTextSecondary: "#4a4236",
           colorTextTertiary: "#79705f",
-          fontFamily: "'Inter', -apple-system, sans-serif",
+          fontFamily: "'Plus Jakarta Sans', -apple-system, sans-serif",
           borderRadius: 8
         }
       }}
